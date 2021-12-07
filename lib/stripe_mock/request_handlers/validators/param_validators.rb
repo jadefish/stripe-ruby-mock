@@ -142,6 +142,36 @@ module StripeMock
         raise Stripe::InvalidRequestError.new("Missing required param: #{param_name}.", param_name.to_s, http_status: 400)
       end
 
+      ##
+      # validate_params ensures the returned parameters hash contains only
+      # parameters explicitly +allowed+.
+      #
+      # If no allow list is explicitly provided, all parameters are allowed by
+      # default.
+      #
+      # A +Stripe::InvalidRequestError+ is raised if any unknown parameters are
+      # present or if any +required+ parameters are missing.
+      def validate_params(params, allowed: params, required: [])
+        required.each do |key|
+          require_param(key) unless params.key?(key)
+        end
+
+        rest = params.keys - allowed - required
+
+        case rest.size
+        when 0
+          # no extra parameters - all good!
+        when 1
+          raise Stripe::InvalidRequestError.new("Received unknown parameter: #{rest.first}",
+                                                http_status: 400)
+        else
+          raise Stripe::InvalidRequestError.new("Received unknown parameters: #{rest.join(', ')}",
+                                                http_status: 400)
+        end
+
+        params
+      end
+
     end
   end
 end

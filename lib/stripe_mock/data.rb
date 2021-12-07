@@ -1363,5 +1363,46 @@ module StripeMock
         success_url: 'https://example.com/success'
       }.merge(params)
     end
+
+    def self.mock_terminal_connection_token(**params)
+      {
+        object: 'terminal.connection_token',
+        secret: 'pst_test_PY2nTIJ46XkznGASg4hBRSM'
+      }.merge(params)
+    end
+
+    def self.mock_terminal_location(**params)
+      {
+        id: 'tml_7EvgFLL3qjt2RpO5pP4EVmZe',
+        object: 'terminal.location',
+        address: {
+          city: "Anytown",
+          country: "US",
+          line1: "1234 Main street",
+          line2: nil,
+          postal_code: "123456",
+          state: nil
+        },
+        display_name: 'My First Store',
+        livemode: false,
+        metadata: {}
+      }.merge(params)
+    end
+
+    def self.mock_terminal_reader(**params)
+      {
+        id: 'tmr_P400-123-456-789',
+        object: 'terminal.reader',
+        device_sw_version: nil,
+        device_type: 'verifone_P400',
+        ip_address: '192.168.2.2',
+        label: 'Blue Rabbit',
+        livemode: false,
+        location: nil,
+        metadata: {},
+        serial_number: '123-456-789',
+        status: 'online'
+      }.merge(params)
+    end
   end
 end
