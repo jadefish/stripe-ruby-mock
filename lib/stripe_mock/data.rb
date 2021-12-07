@@ -1257,7 +1257,7 @@ module StripeMock
           fingerprint: 'Hr3Ly5z5IYxsokWA',
           funding: 'credit',
           generated_from: nil,
-          last4: params.dig(:card, :number)&.[](-4..) || '3155',
+          last4: params.dig(:card, :number).to_s[-4..-1] || '3155',
           three_d_secure_usage: { supported: true },
           wallet: nil
         },
@@ -1272,7 +1272,7 @@ module StripeMock
           branch_code: '',
           country: 'DE',
           fingerprint: 'FD81kbVPe7M05BMj',
-          last4: params.dig(:sepa_debit, :iban)&.[](-4..) || '3000'
+          last4: params.dig(:sepa_debit, :iban).to_s[-4..-1] || '3000'
         }
       }
 
